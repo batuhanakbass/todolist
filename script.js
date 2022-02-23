@@ -1,20 +1,28 @@
-var add = document.querySelector("#task");
-var button = document.querySelector("#liveToastBtn");
-var list = document.querySelector("#list");
+let add = document.querySelector("#task");
+let button = document.querySelector("#liveToastBtn");
+let list = document.querySelector("#list");
 let itemsArray = localStorage.getItem('kisiler') ? JSON.parse(localStorage.getItem('kisiler')) : [];
 let element = document.createElement("li");
+let data = JSON.parse(localStorage.getItem('kisiler'));
 
+todolist()
 function newElement() {
-  if (add.value.trim() == "") {
-    add.value = "";
+  let inputValue = add.value;
+  if (inputValue.trim() == "") {
+    inputValue = "";
   } else {
-    itemsArray.unshift(add.value);
+    
+    itemsArray.unshift(inputValue);
     localStorage.setItem('kisiler', JSON.stringify(itemsArray));
-    let data = JSON.parse(localStorage.getItem('kisiler'));
-    console.log(data)
     add.value = "";
+    todolist()
+    console.log(inputValue)
   }
-  
 }
-
-console.log(data)
+function todolist() {
+  let newLiTag = ""
+  itemsArray.forEach(element => {
+    newLiTag += `<li>${element}</li>`
+  });
+  list.innerHTML = newLiTag
+}
